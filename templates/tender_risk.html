@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zephra | Tender risk screen</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            --page: #171310;
+            --panel: #201c18;
+            --raised: #29231d;
+            --line: #433a30;
+            --muted: #b2a497;
+            --text: #f4ede5;
+            --accent: #d6aa7c;
+            --accent-ink: #2a1c12;
+            --watch: #e2be75;
+            --high: #dc826c;
+        }
+        * { box-sizing: border-box; }
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background: radial-gradient(ellipse at 82% 0%, #443021 0, transparent 34rem), var(--page);
+            color: var(--text);
+            font: 14px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+        a { color: inherit; text-decoration: none; }
+        button, input, select { font: inherit; }
+        .shell { max-width: 1160px; margin: auto; padding: 21px 30px 54px; }
+        .topbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 42px; }
+        .brand { display: flex; align-items: center; gap: 11px; font-size: 15px; font-weight: 800; letter-spacing: .1em; }
+        .brand-mark { display: grid; width: 36px; height: 36px; place-items: center; border-radius: 11px; background: var(--accent); color: var(--accent-ink); font-size: 20px; }
+        .nav { display: flex; flex-wrap: wrap; gap: 5px; }
+        .nav a { padding: 9px 13px; border: 1px solid transparent; border-radius: 9px; color: var(--muted); font-size: 12px; }
+        .nav a:hover, .nav a.active { border-color: #594735; background: #2a221b; color: var(--text); }
+        .eyebrow { color: var(--accent); font-size: 11px; font-weight: 750; letter-spacing: .16em; text-transform: uppercase; }
+        h1 { margin: 10px 0 8px; font-size: clamp(34px, 4vw, 48px); letter-spacing: -.05em; }
+        .intro { max-width: 800px; margin: 0; color: var(--muted); font-size: 14px; }
+        .disclaimer { margin: 22px 0 18px; padding: 13px 15px; border: 1px solid #6b5134; border-radius: 11px; background: #281f18; color: #ead4bb; font-size: 12px; }
+        .layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, .75fr); gap: 17px; align-items: start; }
+        .card { overflow: hidden; border: 1px solid var(--line); border-radius: 15px; background: #201c18f2; }
+        .card-head { padding: 17px 19px; border-bottom: 1px solid var(--line); }
+        .card-head h2, .card-head p { margin: 0; }
+        .card-head h2 { font-size: 14px; }
+        .card-head p { margin-top: 4px; color: var(--muted); font-size: 11px; }
+        .form-body { padding: 17px 19px 19px; }
+        .group-title { margin: 3px 0 10px; color: var(--accent); font-size: 10px; font-weight: 750; letter-spacing: .11em; text-transform: uppercase; }
+        .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 13px; margin-bottom: 19px; }
+        .field { min-width: 0; }
+        .field label { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 5px; font-size: 11px; font-weight: 650; }
+        .field label span { color: var(--muted); font-size: 9px; font-weight: 400; text-align: right; }
+        .field input, .field select {
+            width: 100%; padding: 10px 11px; border: 1px solid #554b3e; border-radius: 8px;
+            outline: none; background: #171512; color: var(--text); font-size: 12px;
+        }
+        .field input:focus, .field select:focus { border-color: var(--accent); }
+        .field small { display: block; margin-top: 4px; color: var(--muted); font-size: 9px; }
+        .submit { width: 100%; padding: 12px 15px; border: 0; border-radius: 9px; background: var(--accent); color: var(--accent-ink); font-weight: 750; cursor: pointer; }
+        .demo-examples { margin: 4px 0 20px; padding: 12px; border: 1px solid #554535; border-radius: 10px; background: #262019; }
+        .demo-examples > p { margin: 0 0 9px; color: var(--muted); font-size: 10px; }
+        .demo-examples > p:first-child { color: var(--accent); font-weight: 750; }
+        .example-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+        .example-button { padding: 10px; border: 1px solid #62513e; border-radius: 8px; background: #30271f; color: var(--text); text-align: left; cursor: pointer; }
+        .example-button:hover, .example-button:focus-visible { border-color: var(--accent); outline: none; }
+        .example-button strong, .example-button small { display: block; }
+        .example-button strong { font-size: 10px; }
+        .example-button small { margin-top: 3px; color: var(--muted); font-size: 9px; }
+        .error { margin: 0 0 13px; padding: 10px 12px; border: 1px solid #774d36; border-radius: 9px; background: #31231b; color: #ffd2ad; font-size: 12px; }
+        .error ul { margin: 5px 0 0; padding-left: 18px; }
+        .result-body { padding: 18px; }
+        .result-badge { display: inline-block; padding: 5px 9px; border: 1px solid #594735; border-radius: 20px; color: var(--accent); font-size: 10px; font-weight: 700; }
+        .result-badge.watch { border-color: #776239; color: var(--watch); }
+        .result-badge.high { border-color: #75463c; color: var(--high); }
+        .result-title { margin: 11px 0 5px; font-size: 22px; letter-spacing: -.04em; }
+        .result-copy { margin: 0; color: var(--muted); font-size: 12px; }
+        .context-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 15px 0; }
+        .metric { padding: 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--raised); }
+        .metric strong, .metric span { display: block; }
+        .metric strong { font-size: 16px; }
+        .metric span { color: var(--muted); font-size: 9px; }
+        .signals { display: grid; gap: 8px; margin-top: 14px; }
+        .signal { padding: 11px 12px; border: 1px solid var(--line); border-left: 3px solid var(--watch); border-radius: 8px; background: #27221c; }
+        .signal.high { border-left-color: var(--high); }
+        .signal-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        .signal-top strong { font-size: 11px; }
+        .signal-top span { color: var(--watch); font-size: 10px; }
+        .signal.high .signal-top span { color: var(--high); }
+        .signal p { margin: 5px 0 0; color: var(--muted); font-size: 10px; }
+        .empty { margin-top: 15px; padding: 14px; border: 1px dashed #5d5142; border-radius: 10px; color: var(--muted); font-size: 11px; }
+        .notes { margin-top: 15px; color: var(--muted); font-size: 10px; }
+        .notes summary { color: #ddc4a8; cursor: pointer; }
+        .notes ul { padding-left: 18px; }
+        .notes li { margin: 5px 0; }
+        .footer { margin-top: 21px; color: #8e7c68; font-size: 10px; text-align: center; }
+        @media (max-width: 850px) { .layout { grid-template-columns: 1fr; } }
+        @media (max-width: 580px) {
+            .shell { padding: 18px 14px 36px; }
+            .topbar { align-items: flex-start; flex-direction: column; margin-bottom: 30px; }
+            .fields { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <main class="shell">
+        <header class="topbar">
+            <a class="brand" href="/"><span class="brand-mark">Z</span> ZEPHRA</a>
+            <nav class="nav" aria-label="Main navigation">
+                <a href="/">Overview</a>
+                <a href="/bim">BIM site twin</a>
+                <a href="/safety">Worker safety</a>
+                <a href="/tender-risk" class="active" aria-current="page">Tender risk</a>
+            </nav>
+        </header>
+        <section>
+            <div class="eyebrow">Project controls · Early warning</div>
+            <h1>Tender abandonment risk screen.</h1>
+            <p class="intro">Enter current project-control measurements to surface conditions that may put contract delivery under stress. This is a transparent monitoring checklist, not a trained prediction model or a guarantee an abandonment will—or will not—happen.</p>
+        </section>
+        <p class="disclaimer"><strong>Decision support only.</strong> Results are uncalibrated screening flags, not a probability, legal finding, or substitute for a quantity surveyor, engineer, commercial lead, or contract administrator. The local thresholds are illustrative; align them with your contract, jurisdiction, sector, and risk appetite before operational use.</p>
+        <section class="layout" aria-label="Tender abandonment risk assessment">
+            <form class="card" method="post" action="/tender-risk">
+                <header class="card-head"><h2>Project snapshot</h2><p>Use a single reporting date and the latest approved baseline / certified records.</p></header>
+                <div class="form-body">
+                    {% if errors %}
+                        <div class="error" role="alert">
+                            Check the following entries:
+                            <ul>{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul>
+                        </div>
+                    {% endif %}
+                    <div class="demo-examples" aria-label="Synthetic tender risk examples">
+                        <p>Run a synthetic example</p>
+                        <p>Each button fills the form and runs the rules. These are demo inputs, not labelled project outcomes.</p>
+                        <div class="example-list">
+                            {% for example_id, example in demo_examples.items() %}
+                                <button class="example-button" type="button" data-example-key="{{ example_id }}">
+                                    <strong>{{ example.title }}</strong>
+                                    <small>{{ example.description }}</small>
+                                </button>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <p class="group-title">Cost &amp; schedule</p>
+                    <div class="fields">
+                        <div class="field">
+                            <label for="snapshot_date">Status reporting date</label>
+                            <input id="snapshot_date" name="snapshot_date" type="date" required value="{{ values.get('snapshot_date', '') }}">
+                            <small>Use the date all reported cost, schedule, and payment values refer to.</small>
+                        </div>
+                        <div class="field">
+                            <label for="baseline_cost_crore">Approved budget <span>₹ crore</span></label>
+                            <input id="baseline_cost_crore" name="baseline_cost_crore" type="number" min="0.01" max="1000000" step="0.01" required value="{{ values.get('baseline_cost_crore', '') }}">
+                        </div>
+                        <div class="field">
+                            <label for="forecast_final_cost_crore">Forecast final cost <span>₹ crore</span></label>
+                            <input id="forecast_final_cost_crore" name="forecast_final_cost_crore" type="number" min="0.01" max="1000000" step="0.01" required value="{{ values.get('forecast_final_cost_crore', '') }}">
+                        </div>
+                        <div class="field">
+                            <label for="actual_cost_crore">Actual cost to date (AC) <span>₹ crore</span></label>
+                            <input id="actual_cost_crore" name="actual_cost_crore" type="number" min="0" max="1000000" step="0.01" required value="{{ values.get('actual_cost_crore', '') }}">
+                        </div>
+                        <div class="field">
+                            <label for="earned_value_crore">Earned value (EV) <span>₹ crore</span></label>
+                            <input id="earned_value_crore" name="earned_value_crore" type="number" min="0" max="1000000" step="0.01" required value="{{ values.get('earned_value_crore', '') }}">
+                            <small>Budgeted value of verified work completed.</small>
+                        </div>
+                        <div class="field">
+                            <label for="planned_value_crore">Planned value (PV) <span>₹ crore</span></label>
+                            <input id="planned_value_crore" name="planned_value_crore" type="number" min="0" max="1000000" step="0.01" required value="{{ values.get('planned_value_crore', '') }}">
+                            <small>Budgeted value of work planned by the reporting date.</small>
+                        </div>
+                        <div class="field">
+                            <label for="material_cost_exposure_pct">Unmitigated material exposure <span>% of baseline</span></label>
+                            <input id="material_cost_exposure_pct" name="material_cost_exposure_pct" type="number" min="0" max="1000" step="0.1" required value="{{ values.get('material_cost_exposure_pct', '') }}">
+                            <small>Estimate for remaining quantities from current quotes / contract indices; context only.</small>
+                        </div>
+                        <div class="field">
+                            <label for="baseline_duration_days">Baseline duration <span>calendar days</span></label>
+                            <input id="baseline_duration_days" name="baseline_duration_days" type="number" min="1" max="36500" step="1" required value="{{ values.get('baseline_duration_days', '') }}">
+                            <small>From the current approved programme.</small>
+                        </div>
+                        <div class="field">
+                            <label for="elapsed_days">Elapsed since start <span>calendar days</span></label>
+                            <input id="elapsed_days" name="elapsed_days" type="number" min="0" max="36500" step="1" required value="{{ values.get('elapsed_days', '') }}">
+                        </div>
+                        <div class="field">
+                            <label for="planned_progress_pct">Planned physical progress <span>% to date</span></label>
+                            <input id="planned_progress_pct" name="planned_progress_pct" type="number" min="0" max="100" step="0.1" required value="{{ values.get('planned_progress_pct', '') }}">
+                            <small>Use the dated baseline, not a straight-line time estimate.</small>
+                        </div>
+                        <div class="field">
+                            <label for="actual_progress_pct">Verified physical progress <span>% to date</span></label>
+                            <input id="actual_progress_pct" name="actual_progress_pct" type="number" min="0" max="100" step="0.1" required value="{{ values.get('actual_progress_pct', '') }}">
+                        </div>
+                        <div class="field">
+                            <label for="last_week_progress_pct">Earned progress, last 7 days <span>percentage points</span></label>
+                            <input id="last_week_progress_pct" name="last_week_progress_pct" type="number" min="0" max="100" step="0.1" required value="{{ values.get('last_week_progress_pct', '') }}">
+                        </div>
+                        <div class="field">
+                            <label for="planned_weekly_progress_pct">Planned progress per week <span>percentage points</span></label>
+                            <input id="planned_weekly_progress_pct" name="planned_weekly_progress_pct" type="number" min="0.01" max="100" step="0.01" required value="{{ values.get('planned_weekly_progress_pct', '') }}">
+                        </div>
+                    </div>
+
+                    <p class="group-title">Cash flow, change &amp; site readiness</p>
+                    <div class="fields">
+                        <div class="field">
+                            <label for="certified_payment_delay_days">Oldest certified payment overdue <span>days</span></label>
+                            <input id="certified_payment_delay_days" name="certified_payment_delay_days" type="number" min="0" max="3650" step="1" required value="{{ values.get('certified_payment_delay_days', '') }}">
+                            <small>Use certified / approved amounts, not unverified claims.</small>
+                        </div>
+                        <div class="field">
+                            <label for="supplier_payment_delay_days">Verified supplier / subcontractor arrears <span>oldest · days</span></label>
+                            <input id="supplier_payment_delay_days" name="supplier_payment_delay_days" type="number" min="0" max="3650" step="1" required value="{{ values.get('supplier_payment_delay_days', '') }}">
+                            <small>Confirm against dated statements before treating as a risk flag.</small>
+                        </div>
+                        <div class="field">
+                            <label for="change_order_pct">Approved change orders <span>% of baseline</span></label>
+                            <input id="change_order_pct" name="change_order_pct" type="number" min="0" max="1000" step="0.1" required value="{{ values.get('change_order_pct', '') }}">
+                        </div>
+                        <div class="field">
+                            <label for="cashflow_coverage_months">Contractor cash-flow cover <span>months</span></label>
+                            <input id="cashflow_coverage_months" name="cashflow_coverage_months" type="number" min="0" max="120" step="0.1" required value="{{ values.get('cashflow_coverage_months', '') }}">
+                            <small>Available project liquidity ÷ forecast monthly site cash burn.</small>
+                        </div>
+                        <div class="field">
+                            <label for="site_readiness">Access &amp; critical permits</label>
+                            <select id="site_readiness" name="site_readiness" required>
+                                <option value="">Select status</option>
+                                <option value="ready" {% if values.get('site_readiness') == 'ready' %}selected{% endif %}>Ready</option>
+                                <option value="partial" {% if values.get('site_readiness') == 'partial' %}selected{% endif %}>Partially outstanding</option>
+                                <option value="blocked" {% if values.get('site_readiness') == 'blocked' %}selected{% endif %}>Blocked</option>
+                            </select>
+                            <small>Consider possession, access, utility clearances, and critical permits.</small>
+                        </div>
+                        <div class="field">
+                            <label for="security_status">Performance security / guarantee</label>
+                            <select id="security_status" name="security_status" required>
+                                <option value="">Select verified status</option>
+                                <option value="valid" {% if values.get('security_status') == 'valid' %}selected{% endif %}>Current and verified</option>
+                                <option value="expiring" {% if values.get('security_status') == 'expiring' %}selected{% endif %}>Expires within 90 days</option>
+                                <option value="missing" {% if values.get('security_status') == 'missing' %}selected{% endif %}>Expired or not verified</option>
+                            </select>
+                            <small>Record evidence and expiry; confirm contract requirements.</small>
+                        </div>
+                    </div>
+
+                    <p class="group-title">Staffing context</p>
+                    <div class="fields">
+                        <div class="field">
+                            <label for="workers_present">Workers currently on site <span>people / shift</span></label>
+                            <input id="workers_present" name="workers_present" type="number" min="0" max="1000000" step="1" required value="{{ values.get('workers_present', '') }}">
+                        </div>
+                        <div class="field">
+                            <label for="workers_planned">Workers planned for this work package <span>people / shift</span></label>
+                            <input id="workers_planned" name="workers_planned" type="number" min="1" max="1000000" step="1" required value="{{ values.get('workers_planned', '') }}">
+                            <small>Compare the same shift / trade / stage. Headcount alone is not predictive.</small>
+                        </div>
+                    </div>
+                    <button class="submit" type="submit">Review early-warning signals</button>
+                </div>
+            </form>
+
+            <aside class="card" aria-live="polite">
+                <header class="card-head"><h2>Assessment</h2><p>Explainable rules · no ML probability</p></header>
+                <div class="result-body">
+                    {% if assessment %}
+                        {% set badge_class = 'high' if assessment.level == 'High concern' else ('watch' if assessment.score else '') %}
+                        <span class="result-badge {{ badge_class }}">REVIEW PRIORITY</span>
+                        <h2 class="result-title">{{ assessment.level }}</h2>
+                        <p class="result-copy">{{ assessment.summary }}</p>
+                        <div class="context-metrics">
+                            <div class="metric"><strong>{{ assessment.snapshot_date }}</strong><span>status date</span></div>
+                            <div class="metric"><strong>{{ assessment.cost_overrun_pct }}%</strong><span>forecast cost growth vs budget</span></div>
+                            <div class="metric"><strong>{{ assessment.progress_gap_pct }} pp</strong><span>verified progress behind plan</span></div>
+                            <div class="metric"><strong>{{ assessment.weekly_attainment_pct }}%</strong><span>last-week rate vs weekly plan</span></div>
+                            <div class="metric"><strong>{{ assessment.workers_present }} / {{ assessment.workers_planned }}</strong><span>workers present / planned this shift</span></div>
+                            <div class="metric"><strong>{% if assessment.cost_performance_index is not none %}{{ assessment.cost_performance_index }}{% else %}n/a{% endif %}</strong><span>earned-value cost index · CPI</span></div>
+                            <div class="metric"><strong>{% if assessment.schedule_performance_index is not none %}{{ assessment.schedule_performance_index }}{% else %}n/a{% endif %}</strong><span>earned-value schedule index · SPI</span></div>
+                            <div class="metric"><strong>{{ assessment.duration_elapsed_pct }}%</strong><span>baseline duration elapsed · context</span></div>
+                        </div>
+                        <p class="result-copy"><strong>Site status:</strong> {{ assessment.site_readiness }}</p>
+                        <p class="result-copy"><strong>Performance security:</strong> {{ assessment.security_status }} · <strong>Material exposure:</strong> {{ assessment.material_cost_exposure_pct }}% of baseline (context only).</p>
+                        <div class="signals">
+                            {% for signal in assessment.signals %}
+                                <article class="signal {{ signal.severity }}">
+                                    <div class="signal-top">
+                                        <strong>{{ signal.label }}</strong>
+                                        <span>{{ signal.value }}</span>
+                                    </div>
+                                    <p>{{ signal.explanation }}</p>
+                                </article>
+                            {% else %}
+                                <div class="empty">No screening threshold was crossed for the submitted values. This does not mean abandonment cannot happen; validate the inputs and maintain normal contract monitoring.</div>
+                            {% endfor %}
+                        </div>
+                        <p class="notes">{{ assessment.score }} {{ assessment.score_label }}</p>
+                    {% else %}
+                        <span class="result-badge">AWAITING INPUT</span>
+                        <h2 class="result-title">Enter the latest snapshot.</h2>
+                        <p class="result-copy">The review will show cost, progress, payment, cash-flow, change, staffing, and site-access signals that crossed the locally configured screening thresholds.</p>
+                        <div class="empty">No outcome label or training dataset has been validated for this project yet, so the tool does not invent an abandonment probability.</div>
+                    {% endif %}
+                    <details class="notes">
+                        <summary>What the screen does and does not mean</summary>
+                        <ul>
+                            <li>Each flag is shown with its measurement and rule; the illustrative thresholds and points are not calibrated statistical weights.</li>
+                            <li>Workers present are compared with the planned shift/work package. Staffing is contextual and should be interpreted alongside work type and sequence.</li>
+                            <li>Payment age, change orders, cost forecast, and schedule progress must use the same reporting date and approved contract records.</li>
+                            <li>Get a project-controls professional to review any high-concern output before making a procurement, termination, or funding decision.</li>
+                        </ul>
+                    </details>
+                </div>
+            </aside>
+        </section>
+        <p class="footer">ZEPHRA · TENDER ABANDONMENT EARLY-WARNING SCREEN · DEMONSTRATION ONLY</p>
+    </main>
+    <script>
+        const demoExamples = {{ demo_examples | tojson }};
+        const tenderForm = document.querySelector('form[action="/tender-risk"]');
+
+        document.querySelectorAll("[data-example-key]").forEach((button) => {
+            button.addEventListener("click", () => {
+                const example = demoExamples[button.dataset.exampleKey];
+                if (!example || !tenderForm) {
+                    throw new Error("Unable to load the selected tender-risk example.");
+                }
+
+                for (const [fieldName, value] of Object.entries(example.values)) {
+                    const field = tenderForm.elements.namedItem(fieldName);
+                    if (!field) {
+                        throw new Error(`Tender-risk example field is missing: ${fieldName}`);
+                    }
+                    field.value = value;
+                }
+
+                tenderForm.requestSubmit();
+            });
+        });
+    </script>
+</body>
+</html>
