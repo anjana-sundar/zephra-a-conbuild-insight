@@ -193,7 +193,7 @@ python -m unittest discover -s tests -v
 
 ## GitHub repository and local files
 
-The intended repository display name is **Zephra - A Conbuild Insight** (GitHub slug: `zephra-a-conbuild-insight`). The house model is approved for publishing. No repository or remote has been created yet; publishing requires an authenticated GitHub account. Do not put credentials or access tokens in this repository.
+The public GitHub repository is [Zephra - A Conbuild Insight](https://github.com/anjana-sundar/zephra-a-conbuild-insight). The approved project is published on the `main` branch.
 
 Images, videos, generated results, source demo media, the tender notebook with embedded image outputs, and the bundled mock CSV are excluded from Git. Only `models/best.pt`, the trained checkpoint used by the app, is included so PPE inference works after cloning. User uploads and generated annotations remain local.
 
@@ -208,7 +208,7 @@ This is a runnable demonstration, not yet a production construction-monitoring p
 - [ ] Validate the PPE detector on representative, permissioned site images. Measure class-level precision/recall, confidence calibration, camera and lighting limitations, and false-negative risks; do not treat it as a replacement for safety inspections.
 - [ ] Keep the tender screen labelled as rule-based until verified longitudinal records and adjudicated outcomes support a prospectively validated model. Follow the ten-step data, leakage, evaluation, calibration, pilot, and governance workflow above; do not use the mock CSV as ground truth.
 - [ ] Add automated browser regression coverage for BIM phases/layers, safety image upload/results, and tender form validation. Add persistence, operational logging, deployment configuration, and monitoring only when the production requirements are agreed.
-- [ ] Create and push the GitHub repository after authenticating the intended owner account. Preserve all image/video exclusions and verify the exact files offered to Git before publishing.
+- [x] Create and push the approved public GitHub repository. Keep the image/video exclusions in place for future commits.
 
 ## Copy/paste continuation prompt
 
@@ -223,8 +223,8 @@ Use this prompt to continue the project in a new coding session:
 > **Risk-screen boundary:** `/tender-risk` calls `tender_risk.py` and is a transparent, uncalibrated rule-based checklist—not a trained abandonment model, probability, or automated award/termination decision. Do not treat `tender/mock_construction_projects.csv` as truth. Use the README's ten-step research/data/label/leakage/split/evaluation/calibration/pilot/governance workflow before any ML claim.
 > The tender page includes two editable synthetic buttons that fill and submit the full required form; their output demonstrates rule thresholds only, not project outcomes.
 >
-> **Priority next:** authenticate the intended GitHub account, confirm repository visibility, inspect the staged file list, then create and push the approved project. Keep every image/video and generated-result exclusion in `.gitignore`. Continue to label the BIM, simulated PTZ, PPE detector, and tender screen according to the limitations documented above.
+> **Priority next:** continue development from the published repository, keep image/video and generated-result exclusions in `.gitignore`, and preserve the BIM, simulated PTZ, PPE detector, and tender-screen limitations documented above.
 >
 > **Production work still needs user-provided/approved inputs:** a dimensioned BIM source such as IFC; design revisions and coordinate system; actual schedule and inspection records; authorized drone/PTZ/CDE feeds; and verified, longitudinal construction outcomes if a future abandonment model is desired. Do not fabricate these or infer them from the concept model. Use appropriately qualified professionals to validate design, structure, MEP, safety, and project-control decisions. Add access controls, retention/audit policy, automated browser tests, and operational deployment only after their requirements are agreed.
 >
-> **GitHub:** the intended repository display name is **Zephra - A Conbuild Insight**, slug `zephra-a-conbuild-insight`. The house is approved, but no repository or remote exists yet. Authenticate the intended GitHub account and confirm repository visibility before publishing. Preserve `.gitignore` exclusions for all image/video files, the embedded-image notebook, uploads/results, and mock CSV; verify the exact Git contents before any push. The README contains the run commands, detector classes, research citations, assumptions, and ML workflow.
+> **GitHub:** the public repository is [Zephra - A Conbuild Insight](https://github.com/anjana-sundar/zephra-a-conbuild-insight). The approved source is published on `main`; preserve `.gitignore` exclusions for all image/video files, the embedded-image notebook, uploads/results, and mock CSV in future commits.
