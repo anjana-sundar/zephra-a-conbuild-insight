@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZEPHRA - Home</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Custom Colors */
+        :root {
+            --primary-bg: #1E1E2F;
+            --secondary-bg: #27293D;
+            --accent-color: #FF9800;
+            --text-color: #ffffff;
+            --container-bg: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background: var(--primary-bg);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            scroll-behavior: smooth; /* Enables smooth scrolling */
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: var(--secondary-bg);
+        }
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+        .navbar-nav .nav-link {
+            color: var(--text-color);
+            cursor: pointer;
+        }
+        .navbar-nav .nav-link:hover {
+            color: var(--accent-color);
+        }
+
+
+
+/* Text container */
+.welcome-container {
+  position: relative;
+  z-index: 2;
+  color: #F5F5F5; /* light grey text */
+}
+
+.welcome-container h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.welcome-container .highlight {
+  color: #FF9800; /* orange highlight */
+}
+
+.welcome-container .subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #ddd;
+}
+
+/* Button styles */
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  background: #FF9800; /* orange button */
+  color: #FFFFFF;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.btn:hover {
+  background: #e67e22; /* darker orange hover */
+  transform: translateY(-3px);
+}
+
+
+
+        /* Hero Section */
+/* Background with image */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  height: 100vh;
+}
+  /* Background image + blending */
+  body {
+  background-image: url("background.jpg");
+}
+
+  /* Add a dark overlay blend */
+  body{
+  background-color: #1E1E2F; /* primary background */
+  background-blend-mode: overlay;
+  color: #ffffff; /* text color */
+}
+
+/* Overlay to make text readable */
+.overlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 30, 47, 0.7); /* semi-transparent dark layer */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+/* Welcome container text */
+.welcome {
+  max-width: 600px;
+  padding: 30px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1); /* card/container */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+}
+
+/* Headings */
+h1 {
+  font-size: 2.8rem;
+  color: #FF9800; /* accent */
+  margin-bottom: 15px;
+}
+
+.subtitle {
+  font-size: 1.3rem;
+  margin-bottom: 25px;
+}
+
+/* Button styling */
+.btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 25px;
+  font-size: 1rem;
+  color: #1E1E2F; /* dark text on accent */
+  background-color: #FF9800; /* accent */
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #e68900;
+  color: #ffffff;
+}
+
+
+.tender-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+/* Section 2 (.section) and Section 3 (.tender-section) animations */
+.section .content,
+.section img,
+.tender-section .content,
+.tender-section img,
+.tender-section .video-container {
+  opacity: 0;
+  transform: translateX(-50px); /* slide from left */
+  transition: all 0.8s ease-out;
+}
+
+/* Active state */
+.section .content.active,
+.section img.active,
+.tender-section .content.active,
+.tender-section img.active,
+.tender-section .video-container.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+/* Left Content */
+.content {
+  max-width: 500px;
+}
+
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.logo {
+  color: #FF9800; /* Accent color */
+  font-size: 20px;
+}
+
+.sub-title {
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: #FF9800;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: bold;
+  margin: 10px 0 20px;
+  color: #ffffff;
+}
+
+.description {
+  font-size: 16px;
+  color: #dddddd;
+  line-height: 1.6;
+}
+
+/* Right Video Container */
+.video-container {
+  position: relative;
+  max-width: 500px;
+  border-radius: 15px;
+  overflow: hidden;
+  background: #27293D; /* Sidebar background */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.video-container img {
+  width: 100%;
+  display: block;
+  opacity: 0.9;
+}
+
+.play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #FF9800;
+  padding: 20px 25px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.video-time {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(39,41,61,0.9);
+  color: #ffffff;
+  font-size: 14px;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+        /* Services Section */
+        .services {
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .service-container {
+            background: var(--container-bg);
+            border-radius: 10px;
+            padding: 30px;
+            min-height: 180px; /* Ensures uniform size */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: 0.3s ease-in-out;
+        }
+        .service-container h3 {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        /* Hover Effect */
+        .service-container:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+        .circle-icon {
+  width: 70px;       /* size */
+  height: 70px;
+  border-radius: 50%; /* makes it circular */
+  object-fit: cover;  /* crop image to fit */
+  border: 2px solid #FF9800;/* optional purple border */
+
+; /* optional purple border */
+}
+
+
+/* Global styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #1E1E2F; /* Primary background */
+  color: #ffffff;      /* Text color */
+}
+
+/* Section container */
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  padding: 60px;
+  background: #1E1E2F; /* Ensure consistent background */
+}
+
+/* Image styling */
+.section img {
+  width: 500px;
+  border-radius: 15px;
+  background: #27293D; /* Sidebar/card background */
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+  padding: 10px;
+}
+
+/* Content block */
+.content {
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.1); /* Card/container background */
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Heading small */
+.content h4 {
+  text-transform: uppercase;
+  color: #FF9800; /* Accent color */
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+/* Heading large */
+.content h2 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+/* Paragraph */
+.content p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #dddddd; /* Softer white */
+  line-height: 1.6;
+}
+
+/* Bullet list */
+.content ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 25px;
+}
+
+.content ul li {
+  margin-bottom: 12px;
+  font-size: 16px;
+  padding-left: 20px;
+  position: relative;
+  color: #ffffff;
+}
+
+.content ul li::before {
+  content: "■";
+  position: absolute;
+  left: 0;
+  color: #FF9800; /* Accent bullet */
+}
+
+/* Link button */
+.content a {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+        /* Project Visibility Section */
+/* Section styling */
+.project-visibility {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #27293D; /* page/section background */
+  color: #ffffff;           /* text color */
+  padding: 60px 10%;
+  overflow: hidden;         /* hide off-screen content */
+}
+
+/* Content box */
+.project-visibility .content {
+  flex: 1;
+  margin-right: 40px;
+  opacity: 0;              /* start hidden */
+  transform: translateX(-50px); /* slide from left */
+  transition: all 0.8s ease-out;
+}
+
+.project-visibility .image {
+  flex: 1;
+  opacity: 0;              /* start hidden */
+  transform: translateX(50px); /* slide from right */
+  transition: all 0.8s ease-out;
+}
+
+/* Active class triggers animation */
+.project-visibility .content.active,
+.project-visibility .image.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Accent color for headings/buttons */
+.project-visibility h5 {
+  color: #FF9800;
+  margin-bottom: 10px;
+}
+
+.project-visibility h2 {
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.project-visibility p,
+.project-visibility ul li {
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.project-visibility a.cta {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #FF9800; /* accent button */
+  color: #27293D;            /* text on button */
+  text-decoration: none;
+  border-radius: 8px;
+  margin-top: 20px;
+  transition: background 0.3s;
+}
+
+.project-visibility a.cta:hover {
+  background-color: #e68a00;
+}
+
+
+       /* Stats Section with Dark Theme */
+.stats-section {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #1E1E2F; /* Primary background */
+  color: #ffffff; /* White text */
+}
+
+.stats-section h2 {
+  font-size: 2rem;
+  color: #FF9800; /* Accent heading */
+  margin-bottom: 10px;
+}
+
+.stats-section p {
+  font-size: 1rem;
+  margin-bottom: 30px;
+  color: #cccccc; /* Light gray text */
+}
+
+.stats-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.stat-box {
+  text-align: center;
+  min-width: 150px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1); /* Transparent card */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.stat-box:hover {
+  transform: translateY(-8px);
+  background: #27293D; /* Sidebar background on hover */
+}
+
+.stat-box h3 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #FF9800; /* Accent numbers */
+  margin-bottom: 10px;
+}
+
+.stat-box p {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.note {
+  margin-top: 40px;
+  font-size: 0.8rem;
+  color: #aaaaaa;
+}
+
+.platform-section {
+  padding: 40px 20px;
+}
+
+.intro-text h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.intro-text span {
+  color: #FF9800;
+}
+.intro-text p {
+  font-size: 14px;
+  color: #cccccc;
+}
+.explore-link {
+  color: #FF9800;
+  font-weight: bold;
+  text-decoration: none;
+}
+.network-img img {
+  max-width: 600px;
+  margin: 30px auto 20px;
+  display: block;
+  border-radius: 8px;
+}
+
+
+body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #27293D; /* optional: page background */
+    }
+
+    .image-strip {
+      width: 100%;
+      overflow: hidden;
+      background-color: #27293D;  /* strip background from your palette */
+      padding: 20px 0;
+    }
+
+    .strip-content {
+      display: flex;
+      width: max-content;
+      animation: scroll 20s linear infinite;
+    }
+
+    .strip-content img {
+      height: 150px;  /* adjust as needed */
+      margin-right: 20px;
+      background-color: rgba(255,255,255,0.1); /* semi-transparent container */
+      border: 2px solid #FF9800;  /* accent border */
+      border-radius: 12px;  /* rounded corners */
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .strip-content img:hover {
+      transform: scale(1.1);  /* slight zoom on hover */
+      box-shadow: 0 8px 20px rgba(255,152,0,0.5); /* accent glow */
+    }
+
+    /* Continuous scroll animation */
+    @keyframes scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+        /* Contact Section */
+        .contact {
+            background: var(--secondary-bg);
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .query-container {
+            background: var(--container-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .form-control {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+        }
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .btn-submit {
+            background: var(--accent-color);
+            color: var(--primary-bg);
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        .btn-submit:hover {
+            background: #e68900;
+            color: white;
+        }
+    </style>
+  <script src="about.js"></script>
+
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">ZEPHRA</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="inde.html">login/signup</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+
+   <div class="overlay">
+
+  <div>
+    <div class="overlay" style="background:url('images/bgmain.png') no-repeat center center/cover;background-size: cover;
+    "></div>
+
+      <h1>Welcome to <span class="highlight">ZEPHRA</span></h1>
+      <p class="subtitle">Revolutionizing Construction with AI</p>
+      <a href="inde.html" class="btn">Get Started</a>
+    </div>
+  </div>
+
+    <section class="tender-section">
+    <!-- Left Content -->
+    <div class="content">
+      <div class="logo-title">
+        <span class="logo">▢</span>
+        <h3>Tender Management</h3>
+      </div>
+      <p class="sub-title">CONSTRUCTION TENDER MANAGEMENT SOFTWARE</p>
+      <h1>Tender faster. Win more.</h1>
+      <p class="description">
+        Procore Tender Management streamlines your tendering process – making it easier
+        to create, send, and collect tenders all in one platform.
+      </p>
+    </div>
+
+    <!-- Right Video Container -->
+  <div class="video-container" id="videoBox">
+  <img src="images/image5.jpg" alt="Tender management demo" id="thumb">
+  <div class="play-btn" onclick="playVideo()">▶</div>
+  <div class="video-time">2:46</div>
+</div>
+
+<script>
+function playVideo() {
+  document.getElementById("videoBox").innerHTML = `
+    <iframe width="560" height="315"
+      src="https://youtu.be/ajIXFJXYu0k?si=r2-nzDenGr4t6peT"
+      title="Tender management demo"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  `;
+}
+</script>
+
+  </section>
+
+    <!-- Services Section -->
+    <div id="services" class="container services">
+        <h2>Our Services</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="service-container">
+                  <img src="images/ai.png" alt="User Icon" class="circle-icon">
+                    <h3>AI-Powered Verification</h3>
+                    <p>Real-time monitoring of construction progress with AI verification using the BIM technology,Curing process during construction.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-container">
+                  <img src="images/drone.png" alt="User Icon" class="circle-icon">
+                    <h3>Drones for Seamless monitering </h3>
+                    <p>Updates on secure dashboard tracking expenditures and ensuring accountability.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-container">
+                  <img src="images/workersafety.png" alt="User Icon" class="circle-icon">
+                    <h3>Worker Safety Bands with real time alerts</h3>
+                    <p>AI alerts for accidents and emergencies to protect workers and to check whether they are well equiped or not.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="section">
+    <img src="images/dashboard.jpg" alt="Dashboard Screenshot">
+
+    <div class="content">
+      <h4>ACCESS</h4>
+      <h2>Keep information accurate</h2>
+      <p>
+        Trust that all stakeholders have access to the latest information in a
+        centralised location, and in a format that everyone can understand.
+      </p>
+      <ul>
+        <li>Information is updated instantly so all stakeholders have ultimate visibility</li>
+        <li>Mitigate risks with accurate data logs</li>
+      </ul>
+      <a href="#">Request a demo →</a>
+    </div>
+  </div>
+
+<section class="project-visibility">
+  <div class="content">
+    <h5>VISIBILITY</h5>
+    <h2>Stay ahead of your projects</h2>
+    <p>
+      Quickly identify potential issues and their impact to schedule and budgets.
+      Avoid unwanted surprises with better project visibility.
+    </p>
+    <ul>
+      <li>Project overview gives a complete picture of any outstanding items</li>
+      <li>Track all steps and speed up the approval process</li>
+    </ul>
+    <a href="#" class="cta">Request a demo →</a>
+  </div>
+
+  <div class="image">
+    <img src="images/phone.png" alt="Project management app screenshot">
+  </div>
+</section>
+
+
+
+<section class="stats-section">
+  <h2>Statistically better</h2>
+  <p>See how Project Management helps our clients improve their processes across the board.</p>
+
+  <div class="stats-container">
+    <div class="stat-box">
+      <h3>8</h3>
+      <p>Faster RFI distribution</p>
+    </div>
+    <div class="stat-box">
+      <h3>15</h3>
+      <p>Days saved by main contractors</p>
+    </div>
+    <div class="stat-box">
+      <h3>90%</h3>
+      <p>Customers report better communication</p>
+    </div>
+  </div>
+
+  <p class="note">* Based on a 2025 survey of Zephra customers</p>
+</section>
+
+<section class="platform-section">
+    <div class="intro-text">
+      <h2>Connect everyone and everything on one platform. <span>Build better.</span></h2>
+      <p>
+        Work more efficiently, communicate better, and build faster from a single source of truth.
+        See how you can do more on the leading construction management platform.
+      </p>
+      <a href="#" class="explore-link">Explore the Platform →</a>
+    </div>
+
+<div class="network-img">
+      <img src="images/image7.png" alt="Procore Construction Network">
+    </div>
+
+
+    <div class="image-strip">
+  <div class="strip-content">
+    <img src="images/image5.jpg" alt="">
+    <img src="images/dashboard.jpg" alt="">
+    <img src="images/image6.jpg" alt="">
+    <img src="images/platform.jpg" alt="">
+    <img src="images/image7.png" alt="">
+    <!-- Duplicate images for seamless scroll -->
+    <img src="images/image5.jpg" alt="">
+    <img src="images/image6.jpg" alt="">
+    <img src="images/dashboard.jpg" alt="">
+    <img src="images/platform.jpg" alt="">
+    <img src="images/background.jpg" alt="">
+  </div>
+</div>
+
+    <!-- Contact Section -->
+    <div id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <p>Email: support@zephra.com | Phone: +123 456 7890</p>
+
+        <!-- Query Submission -->
+        <div class="container query-container">
+            <h4>Have Any Queries?</h4>
+            <form>
+                <div class="mb-3">
+                    <textarea class="form-control" rows="4" placeholder="Type your query here..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-submit">Post Query</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Smooth Scrolling Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('a.nav-link').forEach(anchor => {
+                anchor.addEventListener("click", function (event) {
+                    if (this.getAttribute("href").startsWith("#")) {
+                        event.preventDefault();
+                        const targetId = this.getAttribute("href").substring(1);
+                        const targetSection = document.getElementById(targetId);
+                        if (targetSection) {
+                            window.scrollTo({
+                                top: targetSection.offsetTop - 70, // Adjust for fixed navbar
+                                behavior: "smooth"
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+     <!-- Chatbot Floating Button -->
+<style>
+    .chatbot-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: var(--accent-color);
+        color: var(--primary-bg);
+        border: none;
+        padding: 15px 20px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        border-radius: 50px;
+        cursor: pointer;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        transition: 0.3s ease-in-out;
+    }
+    .chatbot-button:hover {
+        background: #e68900;
+        transform: scale(1.1);
+    }
+</style>
+
+<button class="chatbot-button" onclick="openChatbot()">💬</button>
+
+<script>
+    function openChatbot() {
+        alert("Chatbot support will be integrated here!");
+        // Replace alert with actual chatbot logic (e.g., open chatbot iframe, API call, or chatbot modal)
+    }
+</script>
+
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

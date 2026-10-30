@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zephra Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            background-color: #f4f4f4;
+        }
+        .sidebar {
+            width: 20%;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar h1 {
+            font-size: 24px;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+        .sidebar button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            text-align: left;
+            background: none;
+            border: none;
+            color: #333333;
+            cursor: pointer;
+        }
+        .sidebar button.active {
+            color: #007bff;
+            font-weight: bold;
+        }
+        .sidebar .user-info {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .sidebar .user-info p {
+            margin: 5px 0;
+            color: #333333;
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header h2 {
+            margin: 0;
+            color: #333333;
+        }
+        .header .download-button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .card h3 {
+            margin-top: 0;
+            color: #333333;
+        }
+        .chart-container {
+            height: 200px;
+            position: relative;
+        }
+        .alert {
+            background-color: #ffcccc;
+            padding: 10px;
+            border-radius: 4px;
+            color: #cc0000;
+            text-align: center;
+        }
+        .key-metrics {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .key-metrics .card {
+            flex: 1;
+            text-align: center;
+        }
+        .key-metrics .card h3 {
+            margin-bottom: 10px;
+        }
+        .key-metrics .card p {
+            font-size: 24px;
+            color: #007bff;
+        }
+        .progress-metrics {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .progress-metrics .card {
+            flex: 1;
+        }
+        .progress-metrics .card h3 {
+            margin-bottom: 10px;
+        }
+        .progress-metrics .card p {
+            font-size: 18px;
+            color: #333333;
+        }
+        .products-table {
+            margin-bottom: 20px;
+        }
+        .products-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .products-table th, .products-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .products-table th {
+            background-color: #f4f4f4;
+        }
+        .products-table .progress-bar {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .products-table .progress-bar div {
+            height: 100%;
+            background-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h1>Zephra</h1>
+        <button class="active">Dashboard</button>
+        <button>Projects</button>
+        <button>People</button>
+        <button>Inventory</button>
+        <button>Settings</button> <!-- Added settings button -->
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <h2>Dashboard</h2>
+            <button class="download-button">Download</button>
+        </div>
+
+        <!-- Key Metrics -->
+        <div class="key-metrics">
+            <div class="card">
+                <h3>Active Users now</h3>
+                <p>27/80</p>
+            </div>
+            <div class="card">
+                <h3>Workers Involved</h3>
+                <p>3,298</p>
+            </div>
+            <div class="card">
+                <h3>Activity status</h3>
+                <p>On</p>
+            </div>
+        </div>
+
+        <!-- Progress Metrics -->
+        <div class="progress-metrics">
+            <div class="card">
+                <h3>Cumulative Progress</h3>
+                <p>64%</p>
+                <div class="chart-container">
+                    <canvas id="cumulativeProgressChart"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Amount Spent</h3>
+                <p>86%</p>
+                <div class="chart-container">
+                    <canvas id="amountSpentChart"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Construction Progress</h3>
+                <p>+34%</p>
+                <div class="chart-container">
+                    <canvas id="constructionProgressChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tender Abandonment Chances -->
+        <div class="card">
+            <h3>Tender Abandonment Chances</h3>
+            <div class="chart-container">
+                <canvas id="tenderChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Activity Graph -->
+        <div class="card">
+            <h3>Activity Graph</h3>
+            <div class="chart-container">
+                <canvas id="activityChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Amount vs Work Graph -->
+        <div class="card">
+            <h3>Amount vs Work</h3>
+            <div class="chart-container">
+                <canvas id="amountVsWorkChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Products Delivered Table -->
+        <div class="card products-table">
+            <h3>Products Delivered</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Visualization</th>
+                        <th>Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Cement</td>
+                        <td>
+                            <div class="progress-bar">
+                                <div style="width: 45%;"></div>
+                            </div>
+                        </td>
+                        <td>45</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Brick</td>
+                        <td>
+                            <div class="progress-bar">
+                                <div style="width: 29%;"></div>
+                            </div>
+                        </td>
+                        <td>29</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Cleaning equipment</td>
+                        <td>
+                            <div class="progress-bar">
+                                <div style="width: 1.8%;"></div>
+                            </div>
+                        </td>
+                        <td>1.8</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Others</td>
+                        <td>
+                            <div class="progress-bar">
+                                <div style="width: 7.5%;"></div>
+                            </div>
+                        </td>
+                        <td>7.5</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Money Management Graph -->
+        <div class="card">
+            <h3>Money Management</h3>
+            <div class="chart-container">
+                <canvas id="moneyManagementChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Worker Safety Alerts -->
+        <div class="card">
+            <h3>Worker Safety</h3>
+            <div class="alert">Inactivity detected!</div>
+            <div class="alert">Injury reported!</div>
+        </div>
+
+        <!-- Carbon Emissions on Site -->
+        <div class="card">
+            <h3>Carbon Emissions on Site</h3>
+            <div class="chart-container">
+                <canvas id="emissionsChart"></canvas>
+            </div>
+            <div class="alert">Emission exceeded threshold!</div>
+        </div>
+
+
+        <!-- Fire Accidents -->
+        <div class="card">
+            <h3>Fire Accidents</h3>
+            <div class="alert">Fire Detected!</div>
+        </div>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Tender Abandonment Chances (Ring Chart)
+            const tenderCtx = document.getElementById('tenderChart').getContext('2d');
+            new Chart(tenderCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Yes %', 'No %'],
+                    datasets: [{
+                        data: [30, 70],
+                        backgroundColor: ['#ff6384', '#36a2eb'],
+                    }]
+                }
+            });
+
+            // Cumulative Progress (Line Chart)
+            const cumulativeProgressCtx = document.getElementById('cumulativeProgressChart').getContext('2d');
+            new Chart(cumulativeProgressCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                    datasets: [{
+                        label: 'Cumulative Progress',
+                        data: [50, 55, 60, 62, 64],
+                        borderColor: '#007bff',
+                        fill: false,
+                    }]
+                }
+            });
+
+            // Amount Spent (Line Chart)
+            const amountSpentCtx = document.getElementById('amountSpentChart').getContext('2d');
+            new Chart(amountSpentCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                    datasets: [{
+                        label: 'Amount Spent',
+                        data: [70, 75, 80, 84, 86],
+                        borderColor: '#007bff',
+                        fill: false,
+                    }]
+                }
+            });
+
+            // Construction Progress (Line Chart)
+            const constructionProgressCtx = document.getElementById('constructionProgressChart').getContext('2d');
+            new Chart(constructionProgressCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                    datasets: [{
+                        label: 'Construction Progress',
+                        data: [20, 25, 30, 32, 34],
+                        borderColor: '#007bff',
+                        fill: false,
+                    }]
+                }
+            });
+
+            // Activity Graph (Bar Chart)
+            const activityCtx = document.getElementById('activityChart').getContext('2d');
+            new Chart(activityCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+                    datasets: [{
+                        label: 'Number Of Workers',
+                        data: [12, 15, 14, 18, 20, 22, 25, 28, 30, 32, 35, 40],
+                        backgroundColor: '#007bff',
+                    }]
+                }
+            });
+
+            // Amount vs Work Graph (Line Chart)
+            const amountVsWorkCtx = document.getElementById('amountVsWorkChart').getContext('2d');
+            new Chart(amountVsWorkCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                    datasets: [{
+                        label: 'Last Month',
+                        data: [50000, 55000, 60000, 65000],
+                        borderColor: '#36a2eb',
+                        fill: false,
+                    }, {
+                        label: 'This Month',
+                        data: [60000, 65000, 70000, 75000],
+                        borderColor: '#4bc0c0',
+                        fill: false,
+                    }]
+                }
+            });
+
+            // Money Management Graph (Bar Chart)
+            const moneyManagementCtx = document.getElementById('moneyManagementChart').getContext('2d');
+            new Chart(moneyManagementCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Online',
+                        data: [5000, 7000, 6000, 8000, 9000, 10000, 12000],
+                        backgroundColor: '#007bff',
+                    }, {
+                        label: 'Offline',
+                        data: [3000, 4000, 3500, 4500, 5000, 6000, 7000],
+                        backgroundColor: '#4bc0c0',
+                    }]
+                }
+            });
+
+            // Carbon Emissions on Site (Line Chart)
+            const emissionsChartCtx = document.getElementById('emissionsChart').getContext('2d');
+            new Chart(emissionsChartCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+                    datasets: [{
+                        label: 'Emissions (tons)',
+                        data: [12, 15, 14, 18, 20],
+                        borderColor: '#ff9f40',
+                        fill: false,
+                    }]
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+/* General Page */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #1E1E2F; /* Primary background */
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container */
+.form-container {
+  background: #27293D; /* Sidebar background */
+  padding: 25px;
+  border-radius: 12px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+/* Tabs */
+.tab-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  background: rgba(255,255,255,0.1); /* Card bg */
+  color: #ffffff;
+  transition: 0.3s ease;
+}
+
+.tab.active {
+  background: #FF9800; /* Accent */
+  color: #1E1E2F;
+  font-weight: bold;
+}
+
+/* Forms */
+.form {
+  display: none;
+}
+
+.form.active {
+  display: block;
+}
+
+h2 {
+  margin-bottom: 15px;
+  color: #FF9800; /* Accent */
+}
+
+input {
+  width: 96%;
+  padding: 8px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.1);
+  color: #ffffff;
+  outline: none;
+}
+
+input::placeholder {
+  color: #cccccc;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background: #FF9800;
+  color: #1E1E2F;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  background: #e68900;
+}
+
+/* Logout button */
+.logout-btn {
+  margin-top: 15px;
+  background: rgba(255,255,255,0.1);
+  color: #ffffff;
+}
+
+.logout-btn:hover {
+  background: #FF9800;
+  color: #1E1E2F;
+}

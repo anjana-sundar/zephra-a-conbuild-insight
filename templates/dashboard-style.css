@@ -1,0 +1,134 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: #1E1E2F; /* Zephra primary bg */
+    color: #ffffff;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 20%;
+    background-color: #27293D; /* secondary bg */
+    padding: 20px;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.3);
+}
+.sidebar h1 {
+    font-size: 24px;
+    color: #FF9800; /* accent */
+    margin-bottom: 20px;
+}
+.sidebar button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+    background: none;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+}
+.sidebar button.active {
+    color: #FF9800;
+    font-weight: bold;
+}
+.sidebar .user-info {
+    margin-top: 20px;
+    text-align: center;
+}
+.sidebar .user-info p {
+    margin: 5px 0;
+    color: #ffffff;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.header h2 {
+    margin: 0;
+    color: #FF9800;
+}
+.header .download-button {
+    background-color: #FF9800;
+    color: #1E1E2F;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Dashboard Cards */
+.dashboard .card,
+.key-metrics .card,
+.progress-metrics .card,
+.products-table .card {
+    background-color: #27293D; /* secondary bg */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+}
+.card h3 {
+    margin-top: 0;
+    color: #FF9800;
+}
+.key-metrics .card p,
+.progress-metrics .card p {
+    font-size: 18px;
+    color: #ffffff;
+}
+.key-metrics .card p {
+    font-size: 24px;
+    color: #FF9800;
+}
+
+/* Charts */
+.chart-container {
+    height: 200px; /* required for charts to render */
+    position: relative;
+}
+
+/* Tables */
+.products-table table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #ffffff;
+}
+.products-table th, .products-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #444;
+}
+.products-table th {
+    background-color: #1E1E2F;
+}
+.products-table .progress-bar {
+    height: 10px;
+    background-color: #444;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.products-table .progress-bar div {
+    height: 100%;
+    background-color: #FF9800;
+}
+
+/* Alerts */
+.alert {
+    background-color: #ff5722;
+    padding: 10px;
+    border-radius: 4px;
+    color: #ffffff;
+    text-align: center;
+    margin-top: 5px;
+}
